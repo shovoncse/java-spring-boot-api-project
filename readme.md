@@ -1,12 +1,12 @@
 API documentation for my guessing game application:
 
-# Guess the Number Game API
+# Guess the Number Game API [@Shovan Das](https://github.com/shovoncse)
 
 The Guess the Number Game API allows you to create players, start new games, and make guesses in a guessing game. Players can track their statistics, including the number of games played and total moves made.
 
 ## Table of Contents
 
-- [Guess the Number Game API](#guess-the-number-game-api)
+- [Guess the Number Game API @Shovan Das](#guess-the-number-game-api-shovan-das)
   - [Table of Contents](#table-of-contents)
   - [Endpoints](#endpoints)
   - [Player](#player)
