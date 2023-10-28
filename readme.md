@@ -18,7 +18,7 @@ The Guess the Number Game API allows you to create players, start new games, and
 
 ## Endpoints
 
-Base URL: `http://your-api-url.com`
+Base URL: `http://localhost:8080`
 
 ## Player
 
@@ -31,7 +31,7 @@ Base URL: `http://your-api-url.com`
   - `name` (string, required) - The name of the player.
 - **Example:**
   ```bash
-  curl -X POST http://your-api-url.com/player?name=Teemu
+  curl -X POST http://localhost:8080/player?name=Shovan
   ```
 - **Response:**
   - HTTP Status 200 (OK) if the player is created successfully.
@@ -46,7 +46,7 @@ Base URL: `http://your-api-url.com`
   - `name` (string, required) - The name of the player.
 - **Example:**
   ```bash
-  curl -X GET http://your-api-url.com/player?name=Teemu
+  curl -X GET http://localhost:8080/player?name=Shovan
   ```
 - **Response:**
   - HTTP Status 200 (OK) if the player exists.
@@ -69,7 +69,7 @@ Base URL: `http://your-api-url.com`
 - **Description:** Start a new guessing game.
 - **Example:**
   ```bash
-  curl -X POST http://your-api-url.com/game
+  curl -X POST http://localhost:8080/game
   ```
 - **Response:**
   - HTTP Status 200 (OK) if a new game is started.
@@ -84,7 +84,7 @@ Base URL: `http://your-api-url.com`
   - `move` (integer, required) - The player's guess.
 - **Example:**
   ```bash
-  curl -X PUT http://your-api-url.com/game?move=5
+  curl -X PUT http://localhost:8080/game?move=5
   ```
 - **Response:**
   - HTTP Status 200 (OK) with response strings based on the guess:
