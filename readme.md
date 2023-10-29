@@ -80,115 +80,63 @@ The application follows a simple client-server architecture where the server hos
 
 This design document provides an overview of the Java classes and their interactions within the "Guess the Number" game application. The system allows players to participate in the game, track their statistics, and make guesses to determine the winner.
 
-![Placeholder Image](placeholder_image.png)
-
-For more detailed information on class methods and functionality, please refer to the corresponding Java source code.
-
-
 API documentation for my guessing game application:
 
 # Guess the Number Game API [@Shovan Das](https://github.com/shovoncse)
 
 The Guess the Number Game API allows you to create players, start new games, and make guesses in a guessing game. Players can track their statistics, including the number of games played and total moves made.
 
-## Table of Contents
-
-- [Guess the Number Game Design Document @Shovan Das](#guess-the-number-game-design-document-shovan-das)
-  - [Introduction](#introduction)
-  - [Architecture](#architecture)
-  - [Java Classes](#java-classes)
-    - [Player](#player)
-    - [PlayerImpl](#playerimpl)
-    - [GuessTheNumberGame](#guessthenumbergame)
-    - [PlayerRepository](#playerrepository)
-    - [GameController](#gamecontroller)
-  - [Class Interactions](#class-interactions)
-  - [Conclusion](#conclusion)
-- [Guess the Number Game API @Shovan Das](#guess-the-number-game-api-shovan-das)
-  - [Table of Contents](#table-of-contents)
-  - [Endpoints](#endpoints)
-  - [Player](#player-1)
-    - [Create a Player](#create-a-player)
-    - [Get Player Information](#get-player-information)
-  - [Game](#game)
-    - [Create a Game](#create-a-game)
-    - [Make a Move in the Game](#make-a-move-in-the-game)
 
 ## Endpoints
 
 Base URL: `http://localhost:8080`
 
-## Player
+## Player API
 
 ### Create a Player
 
-- **URL:** `/player`
-- **Method:** POST
-- **Description:** Create a new player with a unique name.
-- **Parameters:**
-  - `name` (string, required) - The name of the player.
-- **Example:**
-  ```bash
-  curl -X POST http://localhost:8080/player?name=Shovan
-  ```
-- **Response:**
-  - HTTP Status 200 (OK) if the player is created successfully.
-  - HTTP Status 400 (Bad Request) if a player with the same name already exists.
+- **URL:** POST `/player`
+- **Parameters:** `name` (string) - The name of the player.
+- **Demo Call:** `curl -X POST "http://localhost:8080/player?name=Teemu"`
 
 ### Get Player Information
 
-- **URL:** `/player`
-- **Method:** GET
-- **Description:** Retrieve player information, including their name, games played, and total moves.
-- **Parameters:**
-  - `name` (string, required) - The name of the player.
-- **Example:**
-  ```bash
-  curl -X GET http://localhost:8080/player?name=Shovan
-  ```
-- **Response:**
-  - HTTP Status 200 (OK) if the player exists.
-  - HTTP Status 404 (Not Found) if the player is not found.
-  - JSON Response:
-  ```json
-  {
-    "name": "Shovan",
-    "gamesPlayed": 1,
-    "totalMoves": 3
-  }
-  ```
+- **URL:** GET `/player`
+- **Parameters:** `name` (string) - The name of the player.
+- **Demo Call:** `curl "http://localhost:8080/player?name=Teemu"`
 
-## Game
+## Game API
 
 ### Create a Game
 
-- **URL:** `/game`
-- **Method:** POST
-- **Description:** Start a new guessing game.
-- **Example:**
-  ```bash
-  curl -X POST http://localhost:8080/game
-  ```
-- **Response:**
-  - HTTP Status 200 (OK) if a new game is started.
-  - HTTP Status 400 (Bad Request) if a game is already in progress.
+- **URL:** POST `/game`
+- **Parameters:** `playerName` (string) - The name of the player who starts the game.
+- **Demo Call:** `curl -X POST "http://localhost:8080/game?playerName=Teemu"`
 
 ### Make a Move in the Game
 
-- **URL:** `/game`
-- **Method:** PUT
-- **Description:** Make a move in the guessing game.
-- **Parameters:**
-  - `move` (integer, required) - The player's guess.
-- **Example:**
-  ```bash
-  curl -X PUT http://localhost:8080/game?move=5
-  ```
-- **Response:**
-  - HTTP Status 200 (OK) with response strings based on the guess:
-    - "The number is larger"
-    - "The number is smaller"
-    - "Correct! You used X moves"
-  - HTTP Status 400 (Bad Request) for invalid moves or game-related errors.
+- **URL:** PUT `/game`
+- **Parameters:** `move` (int) - The number guessed by the player (0-99).
+- **Demo Calls:**
+  - `curl -X PUT "http://localhost:8080/game?move=5"`
+  - `curl -X PUT "http://localhost:8080/game?move=8"`
+  - `curl -X PUT "http://localhost:8080/game?move=6"`
 
-That's the API documentation for my Guess the Number Game. Users can create players, start games, and make guesses while keeping track of their game statistics.
+### Get Game Moves
+
+- **URL:** GET `/game/moves`
+- **Demo Call:** `curl "http://localhost:8080/game/moves"`
+
+## Player Information After the Game
+
+- **URL:** GET `/player`
+- **Parameters:** `name` (string) - The name of the player.
+- **Demo Call:** `curl "http://localhost:8080/player?name=Teemu"`
+
+## Notes
+
+- Replace `"http://localhost:8080"` with the appropriate base URL if you are hosting the API on a different server or port.
+- You can create players and start games before making moves.
+- Game results will be reflected in player statistics.
+
+Enjoy playing the Number Guessing Game!
