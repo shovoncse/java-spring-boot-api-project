@@ -1,4 +1,4 @@
-# Guess the Number Game Design Document [@Shovan Das](https://github.com/shovoncse)
+# Design Document [@Shovan Das](https://github.com/shovoncse)
 
 ## Introduction
 
@@ -12,7 +12,7 @@ The application follows a simple client-server architecture where the server hos
 
 ## Java Classes
 
-### Player
+### Player.java
 
 - **Description**: Represents a player in the game.
 - **Methods**:
@@ -23,7 +23,7 @@ The application follows a simple client-server architecture where the server hos
   - `incrementGamesPlayed()`: Increment the number of games played by the player.
   - `incrementTotalMoves(moves)`: Increment the total moves made by the player.
 
-### PlayerImpl
+### PlayerImpl.java
 
 - **Description**: An implementation of the `Player` interface.
 - **Methods**: Inherits methods from the `Player` interface.
@@ -46,7 +46,7 @@ The application follows a simple client-server architecture where the server hos
   - `getWinner()`: Get the winner of the game.
   - `getGuessResult(guess)`: Get the result of a guess (e.g., "The number is larger," "The number is smaller").
 
-### PlayerRepository
+### PlayerRepository.java
 
 - **Description**: Manages players and their data.
 - **Fields**:
@@ -58,7 +58,7 @@ The application follows a simple client-server architecture where the server hos
   - `getPlayer(name)`: Get a player by name.
   - `savePlayersToFile()`: Save player data to a text file.
 
-### GameController
+### GameController.java
 
 - **Description**: Handles HTTP requests and game interactions.
 - **Fields**:
@@ -76,18 +76,7 @@ The application follows a simple client-server architecture where the server hos
 - The `PlayerRepository` class manages player data and file I/O.
 - The `GameController` class handles HTTP requests, interacts with the `PlayerRepository`, and controls game flow.
 
-## Conclusion
-
-This design document provides an overview of the Java classes and their interactions within the "Guess the Number" game application. The system allows players to participate in the game, track their statistics, and make guesses to determine the winner.
-
-API documentation for my guessing game application:
-
-# Guess the Number Game API [@Shovan Das](https://github.com/shovoncse)
-
-The Guess the Number Game API allows you to create players, start new games, and make guesses in a guessing game. Players can track their statistics, including the number of games played and total moves made.
-
-
-## Endpoints
+# API Endpoints
 
 Base URL: `http://localhost:8080`
 
@@ -97,13 +86,13 @@ Base URL: `http://localhost:8080`
 
 - **URL:** POST `/player`
 - **Parameters:** `name` (string) - The name of the player.
-- **Demo Call:** `curl -X POST "http://localhost:8080/player?name=Teemu"`
+- **Demo Call:** `curl -X POST "http://localhost:8080/player?name=Shovan"`
 
 ### Get Player Information
 
 - **URL:** GET `/player`
 - **Parameters:** `name` (string) - The name of the player.
-- **Demo Call:** `curl "http://localhost:8080/player?name=Teemu"`
+- **Demo Call:** `curl "http://localhost:8080/player?name=Shovan"`
 
 ## Game API
 
@@ -111,7 +100,7 @@ Base URL: `http://localhost:8080`
 
 - **URL:** POST `/game`
 - **Parameters:** `playerName` (string) - The name of the player who starts the game.
-- **Demo Call:** `curl -X POST "http://localhost:8080/game?playerName=Teemu"`
+- **Demo Call:** `curl -X POST "http://localhost:8080/game?playerName=Shovan"`
 
 ### Make a Move in the Game
 
@@ -131,7 +120,7 @@ Base URL: `http://localhost:8080`
 
 - **URL:** GET `/player`
 - **Parameters:** `name` (string) - The name of the player.
-- **Demo Call:** `curl "http://localhost:8080/player?name=Teemu"`
+- **Demo Call:** `curl "http://localhost:8080/player?name=Shovan"`
 
 ## Notes
 
