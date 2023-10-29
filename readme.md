@@ -152,7 +152,7 @@ Base URL: `http://localhost:8080`
   - JSON Response:
   ```json
   {
-    "name": "Teemu",
+    "name": "Shovan",
     "gamesPlayed": 1,
     "totalMoves": 3
   }

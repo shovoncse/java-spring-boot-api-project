@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class GameController {
 
@@ -16,38 +17,57 @@ public class GameController {
     private GuessTheNumberGame game;
 
     @PostMapping("/player")
-    public ResponseEntity<String> createPlayer(@RequestParam String name) {
+    public ResponseEntity<Object> createPlayer(@RequestParam String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Player name is required.");
+        }
+
         Player player = playerRepository.createPlayer(name);
         if (player == null) {
             return ResponseEntity.badRequest().body("Player with the same name already exists.");
         }
-        return ResponseEntity.ok("Player created: " + player.getName());
+
+        return ResponseEntity.ok(player);
     }
 
     @GetMapping("/player")
-    public ResponseEntity<String> getPlayerInfo(@RequestParam String name) {
+    public ResponseEntity<Object> getPlayerInfo(@RequestParam String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Player name is required.");
+        }
+
         Player player = playerRepository.getPlayer(name);
         if (player == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("Player not found.");
         }
-        return ResponseEntity.ok("Player: " + player.getName());
+
+        return ResponseEntity.ok(player);
     }
 
     @PostMapping("/game")
-    public ResponseEntity<String> createGame() {
-        if (game == null || game.isGameOver()) {
-            game = new GuessTheNumberGame(10); // Max attempts: 10
-            Player currentPlayer = playerRepository.getPlayer("Player1");
-            game.setCurrentPlayer(currentPlayer);
-            game.startNewGame();
-            return ResponseEntity.ok("New game started.");
-        } else {
+    public ResponseEntity<Object> createGame(@RequestParam String playerName) {
+        if (game != null && !game.isGameOver()) {
             return ResponseEntity.badRequest().body("A game is already in progress.");
         }
+
+        if (playerName == null || playerName.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Player name is required to start a game.");
+        }
+
+        Player player = playerRepository.getPlayer(playerName);
+        if (player == null) {
+            return ResponseEntity.ok("Player not found.");
+        }
+
+        game = new GuessTheNumberGame(10); // Max attempts: 10
+        game.assignPlayer(player);
+        game.startNewGame();
+
+        return ResponseEntity.ok("New game started.");
     }
 
     @PutMapping("/game")
-    public ResponseEntity<String> playGame(@RequestParam int move) {
+    public ResponseEntity<Object> playGame(@RequestParam int move) {
         if (game == null) {
             return ResponseEntity.badRequest().body("No game in progress. Create a game first.");
         }
@@ -57,13 +77,15 @@ public class GameController {
         }
 
         Player currentPlayer = game.getCurrentPlayer();
-
         if (currentPlayer == null) {
             return ResponseEntity.badRequest().body("No player in the game.");
         }
 
-        boolean validMove = game.makeGuess(move);
+        if (move < 0 || move > 99) {
+            return ResponseEntity.badRequest().body("Invalid move. Guess a number between 0 and 99.");
+        }
 
+        boolean validMove = game.makeGuess(move);
         if (validMove) {
             if (game.isGameOver()) {
                 int totalMoves = game.getTotalMoves();
@@ -75,7 +97,7 @@ public class GameController {
                 return ResponseEntity.ok(game.getGuessResult(move));
             }
         } else {
-            return ResponseEntity.badRequest().body("Invalid move.");
+            return ResponseEntity.badRequest().body("Invalid move. Guess a different number.");
         }
     }
 }
