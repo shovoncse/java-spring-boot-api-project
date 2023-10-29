@@ -18,7 +18,7 @@ public class GuessTheNumberGame extends Game {
 
     @Override
     public void startNewGame() {
-        targetNumber = (int) (Math.random() * 100); // Generate a random number between 0 and 99
+        targetNumber = (int) (Math.random() * 100);
         gameWon = false;
         currentPlayerGuess = -1;
     }

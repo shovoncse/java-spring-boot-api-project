@@ -14,18 +14,16 @@ public class PlayerRepository {
     private String fileName;
 
     public PlayerRepository() {
-        // Load players from the text file
         fileName = "players.txt";
         
     }
     
     public Player createPlayer(String name) {
         if (players.containsKey(name)) {
-            return null; // Player with the same name already exists
+            return null;
         }
         Player player = new PlayerImpl(name);
         players.put(name, player);
-        // Save players to the text file
         savePlayersToFile();
         return player;
     }
@@ -35,7 +33,6 @@ public class PlayerRepository {
     }
 
     private void savePlayersToFile() {
-        // Implement saving logic to the text file
         try (FileWriter writer = new FileWriter(fileName)) {
             for (Player player : players.values()) {
                 writer.write(player.getName() + "\n");

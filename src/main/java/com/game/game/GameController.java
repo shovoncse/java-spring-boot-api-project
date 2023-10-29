@@ -59,7 +59,7 @@ public class GameController {
             return ResponseEntity.ok("Player not found.");
         }
 
-        game = new GuessTheNumberGame(10); // Max attempts: 10
+        game = new GuessTheNumberGame(10); 
         game.assignPlayer(player);
         game.startNewGame();
 
